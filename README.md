@@ -1,5 +1,15 @@
 # React + TypeScript + Vite
 
+▶️ How to Run the Project
+# 1. Install dependencies
+npm install
+
+# 2. Start development server
+npm run dev
+
+Then open:
+http://localhost:5173
+
  Component & Styling Decisions
 # Component Structure
 
