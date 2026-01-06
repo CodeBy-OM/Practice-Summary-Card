@@ -1,73 +1,58 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ Component & Styling Decisions
+# Component Structure
 
-Currently, two official plugins are available:
+The UI is structured around a single PracticeSummaryCard as the main container component, with smaller, focused subcomponents such as MetricCard, StatusIndicator, TrendChart, and Recommendations.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This separation follows the single-responsibility principle, making each component easier to understand, test, and reuse independently.
 
-## React Compiler
+The structure also mirrors how the card would scale in a real dashboard, where individual metrics or indicators may evolve independently.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+# Styling Approach
 
-## Expanding the ESLint configuration
+I chose Tailwind CSS for styling due to its utility-first approach, fast iteration speed, and excellent support for responsive design.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Tailwind allows styles to live close to the markup, reducing context switching and avoiding the overhead of managing separate CSS files for a small-to-medium UI.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+It also aligns well with modern React/Vite workflows and design-system-driven development.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Visual Consistency & Responsiveness
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Consistent spacing, typography, and color usage were achieved by relying on Tailwind’s design tokens (spacing scale, font sizes, color palette).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Responsive behavior was handled using Tailwind’s breakpoint utilities (grid-cols, md, lg) to ensure the layout adapts smoothly across screen sizes.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Hover and transition utilities were used sparingly to add subtle visual polish without overcomplicating the UI.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# Scaling & Real-World Use
+Integration into a Larger PracticeFuel Dashboard
+
+The card is designed to be fully reusable, accepting all data via props, making it easy to integrate into a larger dashboard or list view.
+
+Styling could be aligned with a broader design system by extending Tailwind’s theme (colors, spacing, typography).
+
+The component could be packaged as part of a shared UI library and consumed across multiple pages or products.
+
+Improvements with One Extra Day
+
+Add accessibility enhancements (ARIA labels, better focus states, keyboard navigation).
+
+Introduce skeleton loaders or loading states for async data.
+
+Add unit and component tests (e.g., with React Testing Library).
+
+Improve theming support (dark mode, brand variants).
+
+Add subtle animations for state changes (e.g., metric updates).
+
+# Time Management
+Approximate Time Allocation (2 Hours)
+
+Project setup & tooling: 10–15 minutes
+
+Component layout & structure: ~45 minutes
+
+Styling, responsiveness & polish: ~40 minutes
+
+README & explanation: ~15–20 minutes
